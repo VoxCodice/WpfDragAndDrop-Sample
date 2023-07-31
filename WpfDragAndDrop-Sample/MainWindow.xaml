@@ -1,0 +1,94 @@
+﻿<Window x:Class="WpfDragAndDrop_Sample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dragDrop="clr-namespace:WpfDragAndDrop;assembly=WpfDragAndDrop"
+        mc:Ignorable="d"
+        Title="WpfDragAndDrop_Sample" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="#2c3e50">
+            <ScrollViewer>
+                <ItemsControl ItemsSource="{Binding LeftItems}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Margin="10" Background="Transparent"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource ButtonStyle}">
+                                <dragDrop:WpfTrueDragAndDrop.Draggable>
+                                    <dragDrop:Draggable Delay="500" 
+                                                        DelayThreshold="20"
+                                                        Container="{Binding ElementName=DragDropCanvas}"
+                                                        DragStartCommand="{Binding DataContext.DragStartCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                        DragStartCommandParameter="{Binding}"
+                                                        DragStopCommand="{Binding DataContext.DragStopCommand, RelativeSource={RelativeSource AncestorType=Grid}}"
+                                                        DragStopCommandParameter="{Binding}"
+                                                        DragCompleteCommand="{Binding DataContext.DragCompleteCommand, RelativeSource={RelativeSource AncestorType=Grid}}"
+                                                        DragCompleteCommandParameter="{Binding}">
+                                        <dragDrop:Draggable.Initiator>
+                                            <dragDrop:DragInitiator> Touch,RightMouse </dragDrop:DragInitiator>
+                                        </dragDrop:Draggable.Initiator>
+                                        
+                                        <dragDrop:Draggable.DragDropGroups>
+                                            <dragDrop:DragDropGroup Key="Group1"/>
+                                        </dragDrop:Draggable.DragDropGroups>
+                                    </dragDrop:Draggable>
+                                </dragDrop:WpfTrueDragAndDrop.Draggable>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+
+        <Border Grid.Column="1" Background="#34495e">
+            <ItemsControl ItemsSource="{Binding RightItems}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Margin="10" Background="Transparent"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Style="{StaticResource ButtonStyle}">
+                            <dragDrop:WpfTrueDragAndDrop.Target>
+                                <dragDrop:Target DragEnterCommand="{Binding DragEnterCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                 DragEnterCommandParameter="{Binding}"
+                                                 DragLeaveCommand="{Binding DragLeaveCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                                 DragLeaveCommandParameter="{Binding}"
+                                                 TargetObject="{Binding}">
+                                    <dragDrop:Target.DragDropGroups>
+                                        <dragDrop:DragDropGroup Key="Group1" />
+                                    </dragDrop:Target.DragDropGroups>
+                                </dragDrop:Target>
+                            </dragDrop:WpfTrueDragAndDrop.Target>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
+
+        <Canvas x:Name="DragDropCanvas" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" ClipToBounds="True">
+        </Canvas>
+    </Grid>
+</Window>
