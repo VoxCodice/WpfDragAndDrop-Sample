@@ -23,7 +23,7 @@
         </Grid.ColumnDefinitions>
 
         <Border Grid.Column="0" Background="#2c3e50">
-            <ScrollViewer>
+            <ScrollViewer  PanningMode="Both">
                 <ItemsControl ItemsSource="{Binding LeftItems}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -47,7 +47,7 @@
                                         <dragDrop:Draggable.Initiator>
                                             <dragDrop:DragInitiator> Touch,RightMouse </dragDrop:DragInitiator>
                                         </dragDrop:Draggable.Initiator>
-                                        
+
                                         <dragDrop:Draggable.DragDropGroups>
                                             <dragDrop:DragDropGroup Key="Group1"/>
                                         </dragDrop:Draggable.DragDropGroups>

@@ -34,6 +34,13 @@ namespace WpfDragAndDrop_Sample
             new  () { Position = "left", Text = "Item 6" },
             new  () { Position = "left", Text = "Item 7" },
             new  () { Position = "left", Text = "Item 8" },
+            new  () { Position = "left", Text = "Item 9" },
+            new  () { Position = "left", Text = "Item 10" },
+            new  () { Position = "left", Text = "Item 11" },
+            new  () { Position = "left", Text = "Item 12" },
+            new  () { Position = "left", Text = "Item 13" },
+            new  () { Position = "left", Text = "Item 14" },
+            new  () { Position = "left", Text = "Item 15" },
         };
 
         public ObservableCollection<ListItem> RightItems { get; set; } = new()
